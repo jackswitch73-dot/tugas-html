@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Accounting RPG</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <section class="screen" aria-label="Accounting RPG game">
+        <div class="world" id="world">
+          <div class="hud">
+            <div class="meter">
+              <span>HP</span>
+              <div class="bar"><i id="hpBar"></i></div>
+              <strong id="hpText">100</strong>
+            </div>
+            <div class="meter">
+              <span>MP</span>
+              <div class="bar mp"><i id="mpBar"></i></div>
+              <strong id="mpText">100</strong>
+            </div>
+            <div class="stat">Gold <strong id="goldText">0</strong></div>
+            <div class="stat">Enemies <strong id="enemyText">0/20</strong></div>
+          </div>
+
+          <div class="score-badge">Score <strong id="scoreText">0</strong>/100</div>
+
+          <div class="stage">
+            <img id="npcSprite" class="sprite npc hidden" src="npc.png" alt="NPC sprite" />
+            <img id="playerSprite" class="sprite player" src="player.png" alt="Player sprite" />
+            <img id="enemySprite" class="sprite enemy hidden" src="enemy.png" alt="Enemy sprite" />
+          </div>
+
+          <div class="skill-panel" aria-label="Skills">
+            <button id="escapeBtn" data-skill="escape">Escape <small>20 MP</small></button>
+            <button id="guardBtn" data-skill="guard">Guard <small>20 MP</small></button>
+            <button id="inspectBtn" data-skill="inspect">Inspect <small>20 MP</small></button>
+          </div>
+
+          <div class="inventory" aria-label="Inventory">
+            <button data-item="hp">HP Potion <small id="hpItem">0</small></button>
+            <button data-item="mp">MP Potion <small id="mpItem">0</small></button>
+            <button data-item="poison">Poison <small id="poisonItem">0</small></button>
+            <button data-item="frost">Frost <small id="frostItem">0</small></button>
+          </div>
+        </div>
+
+        <section class="dialogue" id="panel">
+          <h1 id="title">Accounting RPG</h1>
+          <p id="message">Perjalanan menuju kota ujian akuntan dimulai.</p>
+          <div id="options" class="options"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="question-bank.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
