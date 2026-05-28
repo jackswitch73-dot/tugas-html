@@ -1,0 +1,352 @@
+:root {
+  color-scheme: dark;
+  --ink: #f7efd2;
+  --muted: #c8b991;
+  --panel: rgba(23, 20, 25, 0.94);
+  --panel-2: rgba(44, 35, 45, 0.95);
+  --line: #d4a74d;
+  --danger: #d84f45;
+  --mana: #4e9cff;
+  --gold: #f1c84b;
+  --green: #58c46f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #111;
+  color: var(--ink);
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+}
+
+button {
+  border: 2px solid #5d4324;
+  border-radius: 4px;
+  background: linear-gradient(#f1cf7b, #b7762d);
+  color: #24160c;
+  cursor: pointer;
+  font-weight: 800;
+  box-shadow: inset 0 2px rgba(255, 255, 255, 0.28), 0 3px 0 #3b2313;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.8) brightness(0.55);
+  opacity: 0.75;
+}
+
+small {
+  display: block;
+  font-size: 0.72rem;
+}
+
+.game-shell {
+  width: min(1180px, 100vw);
+  padding: 16px;
+}
+
+.screen {
+  position: relative;
+  overflow: hidden;
+  min-height: min(740px, calc(100vh - 32px));
+  border: 6px solid #140d0a;
+  background: #182015;
+  image-rendering: pixelated;
+  box-shadow: 0 0 0 4px #6a4924, 0 24px 60px rgba(0, 0, 0, 0.65);
+}
+
+.world {
+  min-height: 520px;
+  position: relative;
+  background:
+    linear-gradient(rgba(17, 22, 20, 0.1), rgba(8, 8, 12, 0.58)),
+    url("bg-forest.png") center / cover;
+}
+
+.world.truth-bg {
+  background:
+    linear-gradient(rgba(15, 12, 13, 0.06), rgba(8, 8, 12, 0.5)),
+    url("truth-gate-bg.jpg") center / cover;
+}
+
+.world.final-bg {
+  background:
+    linear-gradient(rgba(16, 17, 18, 0.02), rgba(8, 8, 12, 0.38)),
+    url("final-test-bg.png") center / cover;
+}
+
+.world::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 28%;
+  background: linear-gradient(transparent, rgba(17, 12, 10, 0.9));
+}
+
+.hud,
+.score-badge,
+.skill-panel,
+.inventory {
+  position: absolute;
+  z-index: 4;
+  background: rgba(18, 14, 20, 0.88);
+  border: 3px solid #d0aa55;
+  box-shadow: inset 0 0 0 2px #4b2b1a;
+}
+
+.hud {
+  top: 14px;
+  left: 14px;
+  width: min(360px, calc(100% - 28px));
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.meter {
+  display: grid;
+  grid-template-columns: 34px 1fr 42px;
+  gap: 8px;
+  align-items: center;
+}
+
+.bar {
+  height: 14px;
+  border: 2px solid #19100d;
+  background: #321a18;
+}
+
+.bar i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #bd2d35, var(--danger));
+}
+
+.bar.mp {
+  background: #17233f;
+}
+
+.bar.mp i {
+  background: linear-gradient(90deg, #2a75d7, var(--mana));
+}
+
+.stat {
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+.score-badge {
+  top: 14px;
+  right: 14px;
+  padding: 10px 14px;
+}
+
+.stage {
+  position: absolute;
+  inset: 95px 20px 92px;
+  z-index: 2;
+}
+
+.sprite {
+  position: absolute;
+  object-fit: contain;
+  image-rendering: auto;
+  filter: drop-shadow(0 12px 8px rgba(0, 0, 0, 0.55));
+}
+
+.player {
+  left: 14%;
+  bottom: 2%;
+  width: clamp(125px, 19vw, 220px);
+}
+
+.npc {
+  right: 12%;
+  bottom: 5%;
+  width: clamp(120px, 18vw, 210px);
+}
+
+.enemy {
+  right: 13%;
+  bottom: 2%;
+  width: clamp(150px, 22vw, 260px);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.skill-panel {
+  right: 14px;
+  bottom: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(78px, 1fr));
+  gap: 8px;
+  padding: 8px;
+  width: min(360px, calc(100% - 28px));
+}
+
+.skill-panel button,
+.inventory button {
+  min-height: 48px;
+}
+
+.inventory {
+  left: 14px;
+  bottom: 14px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(64px, 1fr));
+  gap: 8px;
+  padding: 8px;
+  width: min(430px, calc(100% - 28px));
+}
+
+.dialogue {
+  position: relative;
+  z-index: 5;
+  min-height: 205px;
+  padding: 18px;
+  background: var(--panel);
+  border-top: 6px solid #d0aa55;
+}
+
+.dialogue h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.28rem, 3vw, 2.15rem);
+  letter-spacing: 0;
+}
+
+.dialogue p {
+  margin: 0 0 14px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.dialogue a {
+  color: #ffd76a;
+  font-weight: 800;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+
+.options button {
+  min-height: 52px;
+  padding: 10px;
+  text-align: left;
+}
+
+.options .wide {
+  grid-column: 1 / -1;
+}
+
+.options .choice {
+  background: linear-gradient(#2f4050, #17212f);
+  color: var(--ink);
+  border-color: #7fa0b8;
+}
+
+.shop-grid,
+.match-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.shop-item {
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  border: 2px solid #76582c;
+  background: var(--panel-2);
+}
+
+.shop-item img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.pill {
+  color: var(--gold);
+}
+
+.notice {
+  color: var(--green);
+}
+
+.bad {
+  color: #ff8a78;
+}
+
+select {
+  width: 100%;
+  padding: 9px;
+  border: 2px solid #76582c;
+  background: #17131a;
+  color: var(--ink);
+}
+
+@media (max-width: 760px) {
+  .game-shell {
+    padding: 0;
+  }
+
+  .screen {
+    min-height: 100vh;
+    border-width: 0;
+  }
+
+  .world {
+    min-height: 500px;
+  }
+
+  .hud {
+    width: calc(100% - 28px);
+  }
+
+  .score-badge {
+    top: 155px;
+    right: auto;
+    left: 14px;
+  }
+
+  .stage {
+    inset: 150px 12px 142px;
+  }
+
+  .player {
+    left: 4%;
+  }
+
+  .enemy,
+  .npc {
+    right: 4%;
+  }
+
+  .skill-panel,
+  .inventory {
+    grid-template-columns: repeat(2, 1fr);
+    width: calc(50% - 20px);
+  }
+
+  .skill-panel {
+    left: 14px;
+    right: auto;
+  }
+
+  .inventory {
+    right: 14px;
+    left: auto;
+  }
+}
